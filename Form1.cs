@@ -57,7 +57,7 @@ namespace road
 
                 Excel.Application application = new Excel.Application();
                 Excel.Workbook workbook = application.Workbooks.Open(Filename: @filePath);
-                Excel.Worksheet worksheet1 = (Excel.Worksheet)workbook.Worksheets.get_Item("excel_sheet");
+                Excel.Worksheet worksheet1 = (Excel.Worksheet)workbook.Worksheets.get_Item(excel_sheet);
                 application.Visible = false;
                 Excel.Range range = worksheet1.UsedRange;
 
@@ -74,8 +74,8 @@ namespace road
                     }
                     dates.Add(date.Substring(0, 10));
                 }
-
-                string strConn = @"Server=localhost;Database=rodcell;Uid=root;Pwd=root;";
+                string str_Con = ConfigurationManager.AppSettings["SDIP"];
+                string strConn = @str_Con;
                 using (MySqlConnection conn = new MySqlConnection(strConn))
                 {
                     conn.Open();
@@ -121,7 +121,8 @@ namespace road
 
         private void comboBoxInsert()
         {
-            string strConn = @"Server=localhost;Database=rodcell;Uid=root;Pwd=root;";
+            string str_Con = ConfigurationManager.AppSettings["SDIP"];
+            string strConn = @str_Con;
             using (MySqlConnection conn = new MySqlConnection(strConn))
             {
                 conn.Open();
